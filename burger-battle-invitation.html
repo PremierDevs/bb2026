@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>You've Been Nominated — Paris Burger Battle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ultra&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EBD3;
+    --cream-deep: #EFE2BF;
+    --tomato: #C8362B;
+    --tomato-deep: #9E2820;
+    --mustard: #E8A82C;
+    --pickle: #486B3C;
+    --ink: #1C140E;
+    --paper: #FBF4E4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.55;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(232, 168, 44, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(200, 54, 43, 0.06) 0%, transparent 50%);
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 1000;
+    mix-blend-mode: multiply;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 70px 0 90px;
+    background: var(--cream);
+    border-bottom: 6px solid var(--ink);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 24px;
+    background-image:
+      linear-gradient(45deg, var(--ink) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--ink) 25%, transparent 25%);
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 0;
+  }
+
+  .stamp {
+    position: absolute;
+    top: 50px;
+    right: 40px;
+    width: 160px;
+    height: 160px;
+    border: 4px double var(--tomato);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transform: rotate(12deg);
+    color: var(--tomato);
+    font-family: 'Ultra', serif;
+    text-align: center;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    opacity: 0.92;
+  }
+
+  .stamp::before {
+    content: '★';
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .stamp-line1 {
+    font-size: 22px;
+    text-transform: uppercase;
+  }
+
+  .stamp-line2 {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    margin-top: 6px;
+    letter-spacing: 0.1em;
+  }
+
+  .stamp-line3 {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-bottom: 28px;
+    color: var(--tomato);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .eyebrow::before, .eyebrow::after {
+    content: '';
+    height: 2px;
+    background: var(--tomato);
+    flex: 1;
+    max-width: 60px;
+  }
+
+  .eyebrow::after { max-width: 200px; }
+
+  h1 {
+    font-family: 'Ultra', Georgia, serif;
+    font-size: clamp(52px, 10vw, 130px);
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--tomato);
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    text-transform: lowercase;
+  }
+
+  .hero-sub {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(18px, 2.4vw, 22px);
+    line-height: 1.5;
+    max-width: 640px;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .hero-sub strong {
+    background: var(--mustard);
+    padding: 0 6px;
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  .from-line {
+    margin-top: 36px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pickle);
+    border-top: 2px solid var(--ink);
+    padding-top: 16px;
+    display: inline-block;
+  }
+
+  /* PERSONAL NOTE */
+  .note-section {
+    padding: 70px 0;
+    background: var(--paper);
+  }
+
+  .note-card {
+    background: var(--cream);
+    border: 3px solid var(--ink);
+    padding: 48px 52px;
+    box-shadow: 10px 10px 0 var(--mustard), 10px 10px 0 3px var(--ink);
+    position: relative;
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .note-card::before {
+    content: 'A NOTE FROM PREMIER REALTY';
+    position: absolute;
+    top: -16px;
+    left: 32px;
+    background: var(--tomato);
+    color: var(--cream);
+    padding: 6px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-style: normal;
+    letter-spacing: 0.25em;
+  }
+
+  .note-card .quote-mark {
+    font-family: 'Ultra', serif;
+    font-style: normal;
+    font-size: 64px;
+    color: var(--tomato);
+    line-height: 0.6;
+    float: left;
+    margin: 16px 12px -8px -6px;
+  }
+
+  .note-card p { margin-bottom: 14px; }
+  .note-card p:last-child { margin-bottom: 0; }
+
+  .note-card .signoff {
+    font-style: normal;
+    font-family: 'Ultra', serif;
+    font-size: 22px;
+    color: var(--tomato);
+    margin-top: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 70px 0;
+    position: relative;
+  }
+
+  .section-head {
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    align-items: baseline;
+  }
+
+  .section-num {
+    font-family: 'Ultra', serif;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--tomato);
+    -webkit-text-stroke: 2px var(--ink);
+    text-shadow: 4px 4px 0 var(--ink);
+  }
+
+  h2 {
+    font-family: 'Ultra', serif;
+    font-size: clamp(34px, 4.8vw, 50px);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  h2 small {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 0.25em;
+    color: var(--pickle);
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  /* WHY YOU WANT IN */
+  .perks-section {
+    background: var(--ink);
+    color: var(--cream);
+    border-top: 6px solid var(--tomato);
+    border-bottom: 6px solid var(--tomato);
+  }
+
+  .perks-section h2 { color: var(--cream); }
+  .perks-section .section-num {
+    color: var(--mustard);
+    -webkit-text-stroke: 2px var(--cream);
+    text-shadow: 4px 4px 0 var(--tomato);
+  }
+  .perks-section h2 small { color: var(--mustard); }
+
+  .perks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .perk {
+    border: 2px solid var(--cream);
+    padding: 28px 24px;
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .perk:hover { background: rgba(232, 168, 44, 0.08); }
+
+  .perk-icon {
+    font-family: 'Ultra', serif;
+    font-size: 42px;
+    color: var(--mustard);
+    line-height: 1;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+
+  .perk h3 {
+    font-family: 'Ultra', serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+
+  .perk p {
+    font-size: 15px;
+    line-height: 1.5;
+    opacity: 0.92;
+  }
+
+  /* THE ASK */
+  .ask-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .ask-col {
+    background: var(--cream);
+    border: 3px solid var(--ink);
+    padding: 32px;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+
+  .ask-col.cost { background: var(--mustard); }
+
+  .ask-col h3 {
+    font-family: 'Ultra', serif;
+    font-size: 22px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px dashed var(--ink);
+  }
+
+  .ask-list {
+    list-style: none;
+  }
+
+  .ask-list li {
+    padding: 10px 0 10px 32px;
+    position: relative;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .ask-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    font-family: 'Ultra', serif;
+    color: var(--tomato);
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .ask-list.no li::before {
+    content: '✗';
+    color: var(--ink);
+  }
+
+  /* TIMELINE */
+  .timeline-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 3px solid var(--ink);
+    background: var(--cream);
+  }
+
+  .step {
+    padding: 24px 20px;
+    border-right: 2px solid var(--ink);
+    text-align: center;
+  }
+
+  .step:last-child {
+    border-right: none;
+    background: var(--tomato);
+    color: var(--cream);
+  }
+
+  .step-num {
+    font-family: 'Ultra', serif;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--tomato);
+    margin-bottom: 10px;
+  }
+
+  .step:last-child .step-num { color: var(--mustard); }
+
+  .step-title {
+    font-family: 'Ultra', serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .step-detail {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  /* PRIZE */
+  .prize-section {
+    background: var(--tomato);
+    color: var(--cream);
+    text-align: center;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .prize-section::before, .prize-section::after {
+    content: '🍔';
+    position: absolute;
+    font-size: 180px;
+    opacity: 0.1;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .prize-section::before { left: -20px; }
+  .prize-section::after { right: -20px; }
+
+  .prize-section h2 {
+    color: var(--cream);
+    font-size: clamp(40px, 6vw, 72px);
+    margin-bottom: 20px;
+  }
+
+  .prize-section h2 em {
+    color: var(--mustard);
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    text-transform: lowercase;
+  }
+
+  .prize-text {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .prize-text strong {
+    background: var(--mustard);
+    color: var(--ink);
+    padding: 0 6px;
+    font-style: normal;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 90px 0;
+    background: var(--cream);
+    text-align: center;
+    border-top: 6px solid var(--ink);
+  }
+
+  .cta-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--tomato);
+    margin-bottom: 16px;
+  }
+
+  .cta-section h2 {
+    font-size: clamp(40px, 6vw, 72px);
+    margin-bottom: 20px;
+  }
+
+  .cta-section h2 em {
+    color: var(--tomato);
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    text-transform: lowercase;
+  }
+
+  .cta-sub {
+    font-size: 19px;
+    max-width: 540px;
+    margin: 0 auto 40px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .urgency {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--mustard);
+    padding: 10px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+    transform: rotate(-1deg);
+  }
+
+  .contact-card {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 36px 48px;
+    border: 3px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--mustard), 8px 8px 0 3px var(--ink);
+    text-align: left;
+    min-width: 320px;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px dashed rgba(245, 235, 211, 0.3);
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+  }
+
+  .contact-row:last-child { border-bottom: none; }
+
+  .contact-row .label {
+    color: var(--mustard);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    min-width: 60px;
+  }
+
+  .contact-row .value {
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 50px 0 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 18px;
+    background-image:
+      linear-gradient(45deg, var(--cream) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--cream) 25%, transparent 25%);
+    background-size: 18px 18px;
+    background-position: 0 0, 9px 0;
+  }
+
+  footer .logo {
+    font-family: 'Ultra', serif;
+    font-size: 32px;
+    text-transform: uppercase;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+
+  footer .logo em {
+    color: var(--mustard);
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    text-transform: lowercase;
+  }
+
+  footer .tagline {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    opacity: 0.65;
+    margin-top: 8px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .stamp {
+      width: 110px;
+      height: 110px;
+      top: 20px;
+      right: 20px;
+    }
+    .stamp-line1 { font-size: 16px; }
+    .stamp-line2, .stamp-line3 { font-size: 9px; }
+    .ask-grid { grid-template-columns: 1fr; }
+    .timeline-strip { grid-template-columns: 1fr 1fr; }
+    .step { border-bottom: 2px solid var(--ink); }
+    .step:nth-child(2) { border-right: none; }
+    .step:nth-child(3), .step:nth-child(4) { border-bottom: none; }
+    .section-head { grid-template-columns: 1fr; gap: 12px; }
+    .section-num { font-size: 48px; }
+    .note-card { padding: 36px 28px; }
+    .contact-card { padding: 28px 32px; min-width: unset; width: 100%; }
+  }
+
+  @keyframes wobble {
+    0%, 100% { transform: rotate(12deg); }
+    50% { transform: rotate(10deg) scale(1.02); }
+  }
+
+  .stamp { animation: wobble 4s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="stamp">
+      <div class="stamp-line1">Nominated</div>
+      <div class="stamp-line2">PARIS · TN</div>
+      <div class="stamp-line3">— 2026 —</div>
+    </div>
+    <div class="eyebrow">Official Invitation</div>
+    <h1>
+      Your<br>
+      Burger<br>
+      <em>made the</em><br>
+      List.
+    </h1>
+    <p class="hero-sub">
+      The community nominated you for the <strong>Paris Burger Battle</strong> &mdash; and we'd love to have you in.
+    </p>
+    <div class="from-line">From Premier Realty Group · Paris, TN</div>
+  </div>
+</header>
+
+<!-- PERSONAL NOTE -->
+<section class="note-section">
+  <div class="container">
+    <div class="note-card">
+      <span class="quote-mark">"</span>
+      <p>Hey y'all &mdash; we're Premier Realty Group, and we're throwing a <strong style="font-style: normal;">community-wide spotlight</strong> on the best burgers in Paris this fall. The community nominated their favorite spots, and your name kept coming up.</p>
+      <p>Here's the deal: <strong style="font-style: normal;">six local restaurants, six weeks, one championship round.</strong> No entry fee. No catch. Just a chance to show off what y'all are doing and get in front of a whole lot of locals who already love it.</p>
+      <p>We hope you'll join us.</p>
+      <div class="signoff">— The Premier Realty Team</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT IS -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <h2>What It Is<small>&mdash; The short version</small></h2>
+    </div>
+    <p style="font-size: 19px; line-height: 1.6; max-width: 760px;">
+      Each week we feature one nominated burger. Our agents stop by, order off the menu, score it, and post it across our social channels. Followers vote. After six weeks, the top three burgers face off in a <strong style="background: var(--mustard); padding: 0 4px;">public-vote championship</strong> — and the winner gets crowned <strong>Paris's Best Burger 2026.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- WHY YOU WANT IN -->
+<section class="perks-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <h2>Why You Want In<small>&mdash; What's in it for you</small></h2>
+    </div>
+    <div class="perks-grid">
+      <div class="perk">
+        <div class="perk-icon">★</div>
+        <h3>Free Pro Content</h3>
+        <p>A polished reel, a hero photo, a feature post, story coverage, and standings updates &mdash; all of it tagged to you, free for you to repost.</p>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">⤴</div>
+        <h3>Local Reach</h3>
+        <p>You get featured to our growing audience of Paris-area locals across Instagram, Facebook, and beyond. Real eyeballs from real neighbors.</p>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">⚔</div>
+        <h3>Real Competition</h3>
+        <p>Six top spots, head-to-head, scored by an office panel and the public. Bragging rights aren't something you can buy &mdash; you earn 'em.</p>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">🏆</div>
+        <h3>The Crown</h3>
+        <p>Win the championship and you take home a custom <em>"Paris's Best Burger 2026"</em> window decal. Year-round, every customer sees it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE ASK -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <h2>The Ask<small>&mdash; Here's what we need from you</small></h2>
+    </div>
+    <div class="ask-grid">
+      <div class="ask-col">
+        <h3>What We'll Do</h3>
+        <ul class="ask-list">
+          <li>Bring 3&ndash;4 agents in on a date that works for you</li>
+          <li>Order off your menu and pay full price</li>
+          <li>Tip well</li>
+          <li>Film a quick reel and snap a hero photo</li>
+          <li>Tag y'all everywhere we post</li>
+          <li>Score the burger fairly and publish the results</li>
+        </ul>
+      </div>
+      <div class="ask-col cost">
+        <h3>What It Costs You</h3>
+        <ul class="ask-list no">
+          <li>Nothing.</li>
+          <li>No fee, no commitment, no comp meals.</li>
+          <li>Just one visit, on a date you pick.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <h2>The Timeline<small>&mdash; What happens, and when</small></h2>
+    </div>
+    <div class="timeline-strip">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Say Yes</div>
+        <div class="step-detail">Reply to confirm. First six in win the slots.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Pick A Date</div>
+        <div class="step-detail">We work around you &mdash; lunch, dinner, slow day, your call.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">The Visit</div>
+        <div class="step-detail">3&ndash;4 agents stop in. We post the reel that week.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">The Battle</div>
+        <div class="step-detail">Six weeks of voting. Top 3 head to championship.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIZE -->
+<section class="prize-section">
+  <div class="container">
+    <h2>The <em>winner</em> Gets The Crown</h2>
+    <p class="prize-text">
+      Top three burgers from the regular season go head-to-head in a <strong>72-hour public vote.</strong> The winner takes home the title of <strong>Paris's Best Burger 2026</strong> and a custom window decal &mdash; year-round bragging rights every customer walks past.
+    </p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-eyebrow">⚡ Slots Are First-Come, First-Served ⚡</div>
+    <h2>So &mdash; <em>are y'all</em> in?</h2>
+    <p class="cta-sub">
+      Just say the word. Reach out however's easiest, and we'll lock in your slot and a date that works for you.
+    </p>
+    <div class="urgency">Only 6 spots. First to confirm earn 'em.</div>
+    <br>
+    <div class="contact-card">
+      <div class="contact-row">
+        <span class="label">Call</span>
+        <span class="value">[Phone Number]</span>
+      </div>
+      <div class="contact-row">
+        <span class="label">Text</span>
+        <span class="value">[Phone Number]</span>
+      </div>
+      <div class="contact-row">
+        <span class="label">Email</span>
+        <span class="value">[Email Address]</span>
+      </div>
+      <div class="contact-row">
+        <span class="label">DM</span>
+        <span class="value">@[Instagram Handle]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="logo">Premier <em>Realty</em> Group</div>
+    <p class="tagline">Connecting Paris, TN — one neighborhood, one burger at a time.</p>
+  </div>
+</footer>
+
+</body>
+</html>
