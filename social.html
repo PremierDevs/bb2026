@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paris Burger Battle — Social Slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ultra&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root {
+    --cream: #F5EBD3;
+    --cream-deep: #EFE2BF;
+    --tomato: #C8362B;
+    --tomato-deep: #9E2820;
+    --mustard: #E8A82C;
+    --pickle: #486B3C;
+    --ink: #1C140E;
+    --paper: #FBF4E4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #2a2520;
+    color: var(--cream);
+    font-family: 'Fraunces', Georgia, serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    max-width: 1100px;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+
+  .page-header h1 {
+    font-family: 'Ultra', serif;
+    font-size: 42px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 12px;
+    color: var(--mustard);
+  }
+
+  .page-header p {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    margin-bottom: 24px;
+  }
+
+  .download-all {
+    background: var(--mustard);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    padding: 14px 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 5px 5px 0 var(--ink);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .download-all:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--ink);
+  }
+
+  .download-all:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+
+  /* SLIDES GRID */
+  .slides-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+  }
+
+  .slide-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .slide-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mustard);
+    opacity: 0.85;
+  }
+
+  .slide-frame {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    position: relative;
+    background: white;
+    border: 2px solid var(--mustard);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .slide {
+    width: 1080px;
+    height: 1350px;
+    transform-origin: top left;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    font-family: 'Fraunces', serif;
+  }
+
+  /* Scale will be set via JS to match container */
+
+  .slide-grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 100;
+    mix-blend-mode: multiply;
+  }
+
+  .download-btn {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid var(--cream);
+    padding: 10px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+    width: 100%;
+  }
+
+  .download-btn:hover {
+    background: var(--mustard);
+    color: var(--ink);
+    border-color: var(--mustard);
+  }
+
+  /* ============================================
+     SLIDE STYLES — designed at 1080x1350 native
+     ============================================ */
+
+  /* SLIDE 1 — COVER */
+  .s-cover {
+    background: var(--tomato);
+    color: var(--cream);
+    padding: 100px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .s-cover .deco {
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.1;
+    pointer-events: none;
+    line-height: 1;
+  }
+  .s-cover .deco-1 { top: 60px; right: 50px; transform: rotate(15deg); }
+  .s-cover .deco-2 { bottom: 80px; left: 40px; transform: rotate(-12deg); }
+
+  .s-cover .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    background: var(--mustard);
+    color: var(--ink);
+    padding: 18px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    border: 4px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+    transform: rotate(-1.5deg);
+    align-self: flex-start;
+    font-weight: 500;
+  }
+
+  .s-cover .badge .dot {
+    width: 18px;
+    height: 18px;
+    background: var(--tomato);
+    border-radius: 50%;
+  }
+
+  .s-cover h1 {
+    font-family: 'Ultra', serif;
+    font-size: 220px;
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    margin: 60px 0 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .s-cover h1 em {
+    font-style: italic;
+    color: var(--mustard);
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    text-transform: lowercase;
+  }
+
+  .s-cover .footer-line {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-top: 3px solid var(--cream);
+    padding-top: 22px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .s-cover .footer-line strong {
+    color: var(--mustard);
+    font-family: 'Ultra', serif;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+  }
+
+  /* SLIDE 2 — THE IDEA */
+  .s-idea {
+    background: var(--cream);
+    color: var(--ink);
+    padding: 110px 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .s-idea .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--tomato);
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .s-idea .eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 3px;
+    background: var(--tomato);
+  }
+
+  .s-idea .lines {
+    font-family: 'Ultra', serif;
+    font-size: 130px;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .s-idea .lines .accent { color: var(--tomato); }
+
+  .s-idea .punchline {
+    margin-top: 60px;
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  .s-idea .punchline strong {
+    background: var(--mustard);
+    padding: 0 10px;
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  /* SLIDE 3 — HOW IT WORKS */
+  .s-how {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 100px 80px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .s-how h2 {
+    font-family: 'Ultra', serif;
+    font-size: 110px;
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+  }
+
+  .s-how h2 em {
+    color: var(--mustard);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    text-transform: lowercase;
+  }
+
+  .s-how .steps { flex: 1; }
+
+  .s-how .step {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 2px dashed rgba(245, 235, 211, 0.3);
+    align-items: center;
+  }
+
+  .s-how .step:last-child { border-bottom: none; }
+
+  .s-how .step-num {
+    font-family: 'Ultra', serif;
+    font-size: 90px;
+    color: var(--tomato);
+    line-height: 1;
+  }
+
+  .s-how .step-content h3 {
+    font-family: 'Ultra', serif;
+    font-size: 38px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .s-how .step-content p {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    line-height: 1.4;
+    opacity: 0.8;
+  }
+
+  /* SLIDE 4 — NOMINATIONS OPEN */
+  .s-nom-open {
+    background: var(--mustard);
+    color: var(--ink);
+    padding: 110px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .s-nom-open .arrow-up {
+    font-family: 'Ultra', serif;
+    font-size: 180px;
+    line-height: 1;
+    margin-bottom: 30px;
+    color: var(--tomato);
+  }
+
+  .s-nom-open h1 {
+    font-family: 'Ultra', serif;
+    font-size: 180px;
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    margin-bottom: 50px;
+  }
+
+  .s-nom-open h1 em {
+    color: var(--tomato);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    text-transform: lowercase;
+    display: block;
+  }
+
+  .s-nom-open p {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-style: italic;
+    line-height: 1.4;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* SLIDE 5 — HOW TO NOMINATE */
+  .s-three-ways {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 90px 80px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .s-three-ways h2 {
+    font-family: 'Ultra', serif;
+    font-size: 100px;
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .s-three-ways h2 em {
+    color: var(--tomato);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    text-transform: lowercase;
+  }
+
+  .s-three-ways .sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pickle);
+    margin-bottom: 50px;
+  }
+
+  .s-three-ways .ways { flex: 1; display: flex; flex-direction: column; gap: 24px; }
+
+  .s-three-ways .way {
+    background: var(--cream);
+    border: 4px solid var(--ink);
+    padding: 30px 36px;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 30px;
+    align-items: center;
+    box-shadow: 8px 8px 0 var(--tomato);
+  }
+
+  .s-three-ways .way-num {
+    background: var(--tomato);
+    color: var(--cream);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Ultra', serif;
+    font-size: 44px;
+    border: 4px solid var(--ink);
+  }
+
+  .s-three-ways .way h3 {
+    font-family: 'Ultra', serif;
+    font-size: 38px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .s-three-ways .way p {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  /* SLIDE 6 — HASHTAG */
+  .s-hashtag {
+    background: var(--ink);
+    color: var(--mustard);
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+
+  .s-hashtag::before {
+    content: '#';
+    position: absolute;
+    font-family: 'Ultra', serif;
+    font-size: 1400px;
+    color: var(--tomato);
+    opacity: 0.07;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 0.8;
+  }
+
+  .s-hashtag .star-row {
+    font-family: 'DM Mono', monospace;
+    font-size: 28px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    color: var(--mustard);
+    z-index: 2;
+  }
+
+  .s-hashtag .htag {
+    font-family: 'Ultra', serif;
+    font-size: 180px;
+    line-height: 0.88;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    color: var(--mustard);
+    z-index: 2;
+    position: relative;
+  }
+
+  .s-hashtag .instruction {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 38px;
+    color: var(--cream);
+    margin-top: 60px;
+    max-width: 720px;
+    z-index: 2;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  /* SLIDE 7 — STAKES */
+  .s-stakes {
+    background: var(--tomato);
+    color: var(--cream);
+    padding: 100px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .s-stakes .crown {
+    font-size: 280px;
+    line-height: 1;
+    margin-bottom: 30px;
+  }
+
+  .s-stakes h2 {
+    font-family: 'Ultra', serif;
+    font-size: 130px;
+    line-height: 0.85;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+  }
+
+  .s-stakes h2 em {
+    color: var(--mustard);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    text-transform: lowercase;
+  }
+
+  .s-stakes .title-card {
+    background: var(--mustard);
+    color: var(--ink);
+    border: 4px solid var(--ink);
+    padding: 30px 40px;
+    display: inline-block;
+    margin: 0 auto 40px;
+    box-shadow: 10px 10px 0 var(--ink);
+    transform: rotate(-2deg);
+    font-family: 'Ultra', serif;
+    font-size: 48px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+  }
+
+  .s-stakes p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 36px;
+    line-height: 1.4;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* SLIDE 8 — CTA */
+  .s-cta {
+    background: var(--mustard);
+    color: var(--ink);
+    padding: 90px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  .s-cta .top {
+    font-family: 'DM Mono', monospace;
+    font-size: 26px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--tomato);
+    margin-bottom: 20px;
+  }
+
+  .s-cta h2 {
+    font-family: 'Ultra', serif;
+    font-size: 220px;
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+  }
+
+  .s-cta h2 em {
+    color: var(--tomato);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    text-transform: lowercase;
+  }
+
+  .s-cta .deadline {
+    background: var(--ink);
+    color: var(--mustard);
+    padding: 22px 36px;
+    font-family: 'DM Mono', monospace;
+    font-size: 26px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 4px solid var(--ink);
+    transform: rotate(-1.5deg);
+    box-shadow: 8px 8px 0 var(--tomato), 8px 8px 0 4px var(--ink);
+    align-self: center;
+    margin: 30px auto;
+  }
+
+  .s-cta .url-box {
+    border: 4px solid var(--ink);
+    padding: 28px 32px;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .s-cta .url-box .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pickle);
+  }
+
+  .s-cta .url-box .url {
+    font-family: 'Ultra', serif;
+    font-size: 38px;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+  }
+
+  .s-cta .url-box .url em {
+    color: var(--tomato);
+    font-style: normal;
+  }
+
+  .s-cta .htag-mini {
+    font-family: 'Ultra', serif;
+    font-size: 48px;
+    color: var(--ink);
+    margin-top: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  /* RESPONSIVE PAGE */
+  @media (max-width: 600px) {
+    .slides-grid { grid-template-columns: 1fr; }
+    .page-header h1 { font-size: 28px; }
+  }
+
+  /* STATUS TOAST */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: var(--ink);
+    color: var(--mustard);
+    padding: 16px 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 2px solid var(--mustard);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Burger Battle / Social Slides</h1>
+  <p>1080 × 1350 · Instagram 4:5 carousel format · Click any slide to download as PNG</p>
+  <button class="download-all" onclick="downloadAll()">⬇ Download All 8 Slides</button>
+</div>
+
+<div class="slides-grid" id="slidesGrid">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide-card">
+    <div class="slide-meta">SLIDE 01 / COVER</div>
+    <div class="slide-frame">
+      <div class="slide s-cover slide-grain" id="slide-1">
+        <span class="deco deco-1">🍔</span>
+        <span class="deco deco-2">🏆</span>
+        <div>
+          <div class="badge">
+            <span class="dot"></span>
+            Coming Fall 2026
+          </div>
+        </div>
+        <div>
+          <h1>Paris<br><em>burger</em><br>Battle</h1>
+        </div>
+        <div class="footer-line">
+          <span>Premier Realty Group</span>
+          <strong>★ Paris, TN ★</strong>
+        </div>
+      </div>
+    </div>
+    <button class="download-btn" onclick="downloadSlide('slide-1', '01-cover')">⬇ Download Slide 1</button>
+  </div>
+
+  <!-- SLIDE 2: THE IDEA -->
+  <div class="slide-card">
+    <div class="slide-meta">SLIDE 02 / THE BIG IDEA</div>
+    <div class="slide-frame">
+      <div class="slide s-idea slide-grain" id="slide-2">
+        <div class="eyebrow">Here's the deal</div>
+        <div class="lines">
+          Six<br>
+          <span class="accent">Burgers.</span><br>
+          Six<br>
+          <span class="accent">Weeks.</span><br>
+          One<br>
+          <span class="accent">Champion.</span>
+        </div>
+        <div class="punchline">
+          But <strong>y'all pick</strong> the lineup.
+        </div>
+      </div>
+    </div>
+    <button class="download-btn" onclick="downloadSlide('slide-2', '02-the-idea')">⬇ Download Slide 2</button>
+  </div>
+
+  <!-- SLIDE 3: HOW IT WORKS -->
+  <div class="slide-card">
+    <div class="slide-meta">SLIDE 03 / HOW IT WORKS</div>
+    <div class="slide-frame">
+      <div class="slide s-how slide-grain" id="slide-3">
+        <h2>How <em>it</em><br>works.</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h3>You Nominate</h3>
+              <p>Tag your favorite Paris burger spot.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h3>Top 6 Compete</h3>
+              <p>Most-nominated spots get invited in.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h3>We Taste &amp; Score</h3>
+              <p>Office panel + your votes each week.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <h3>Champion Crowned</h3>
+              <p>Top 3 face off. Public vote. Winner takes all.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="download-btn" onclick="downloadSlide('slide-3', '03-how-it-works')">⬇ Download Slide 3</button>
+  </div>
+
+  <!-- SLIDE 4: NOMINATIONS OPEN -->
+  <div class="slide-card">
+    <div class="slide-meta">SLIDE 04 / THE ASK</div>
+    <div class="slide-frame">
+      <div class="slide s-nom-open slide-grain" id="slide-4">
+        <div class="arrow-up">▲</div>
+        <h1>
+          Nominations<br>
+          <em>are now</em><br>
+          Open.
+        </h1>
+        <p>So tell us — who's got the best burger in Paris?</p>
+      </div>
+    </div>
+    <button class="download-btn" onclick="downloadSlide('slide-4', '04-nominations-open')">⬇ Download Slide 4</button>
+  </div>
+
+  <!-- SLIDE 5: 3 WAYS TO NOMINATE -->
+  <div class="slide-card">
+    <div class="slide-meta">SLIDE 05 / 3 WAYS TO NOMINATE</div>
+    <div class="slide-frame">
+      <div class="slide s-three-ways slide-grain" id="slide-5">
+        <h2>Three <em>ways</em><br>to nominate.</h2>
+        <div class="sub">— Pick one. Pick all three. —</div>
+        <div class="ways">
+          <div class="way">
+            <div class="way-num">1</div>
+            <div>
+              <h3>Comment</h3>
+              <p>Drop their name on our nomination post.</p>
+            </div>
+          </div>
+          <div class="way">
+            <div class="way-num">2</div>
+            <div>
+              <h3>Tag In Your Story</h3>
+              <p>Tag the spot &amp; @premierrealtygroup.</p>
+            </div>
+          </div>
+          <div class="way">
+            <div class="way-num">3</div>
+            <div>
+              <h3>Use The Hashtag</h3>
+              <p>#ParisBurgerBattle on every post.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="download-btn" onclick="downloadSlide('slide-5', '05-three-ways')">⬇ Download Slide 5</button>
+  </div>
+
+  <!-- SLIDE 6: HASHTAG -->
+  <div class="slide-card">
+    <div class="slide-meta">SLIDE 06 / THE HASHTAG</div>
+    <div class="slide-frame">
+      <div class="slide s-hashtag slide-grain" id="slide-6">
+        <div class="star-row">★ The Official Hashtag ★</div>
+        <div class="htag">
+          #Paris<br>
+          Burger<br>
+          Battle
+        </div>
+        <p class="instruction">
+          Use it everywhere. The bigger it spreads, the bigger the battle gets.
+        </p>
+      </div>
+    </div>
+    <button class="download-btn" onclick="downloadSlide('slide-6', '06-hashtag')">⬇ Download Slide 6</button>
+  </div>
+
+  <!-- SLIDE 7: STAKES -->
+  <div class="slide-card">
+    <div class="slide-meta">SLIDE 07 / WHAT'S AT STAKE</div>
+    <div class="slide-frame">
+      <div class="slide s-stakes slide-grain" id="slide-7">
+        <div class="crown">👑</div>
+        <h2>The <em>crown</em><br>is real.</h2>
+        <div class="title-card">Paris's Best<br>Burger 2026</div>
+        <p>Plus a custom window decal — year-round bragging rights, every customer sees it.</p>
+      </div>
+    </div>
+    <button class="download-btn" onclick="downloadSlide('slide-7', '07-stakes')">⬇ Download Slide 7</button>
+  </div>
+
+  <!-- SLIDE 8: CTA -->
+  <div class="slide-card">
+    <div class="slide-meta">SLIDE 08 / FINAL CTA</div>
+    <div class="slide-frame">
+      <div class="slide s-cta slide-grain" id="slide-8">
+        <div>
+          <div class="top">⚡ Don't Sleep On It ⚡</div>
+          <h2>Tag.<br><em>now.</em></h2>
+          <div class="deadline">⏰ Closes [Date]</div>
+        </div>
+        <div>
+          <div class="url-box">
+            <div class="label">Learn More</div>
+            <div class="url">prealtygroup.com<em>/burger-battle</em></div>
+          </div>
+          <div class="htag-mini">#ParisBurgerBattle</div>
+        </div>
+      </div>
+    </div>
+    <button class="download-btn" onclick="downloadSlide('slide-8', '08-cta')">⬇ Download Slide 8</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">Working...</div>
+
+<script>
+  // Scale slides to fit their frames
+  function scaleSlides() {
+    document.querySelectorAll('.slide-frame').forEach(frame => {
+      const slide = frame.querySelector('.slide');
+      if (!slide) return;
+      const frameWidth = frame.offsetWidth;
+      const scale = frameWidth / 1080;
+      slide.style.transform = `scale(${scale})`;
+    });
+  }
+
+  scaleSlides();
+  window.addEventListener('resize', scaleSlides);
+
+  // Toast helper
+  function showToast(message, duration = 1800) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    if (duration) {
+      setTimeout(() => toast.classList.remove('show'), duration);
+    }
+  }
+
+  // Download a single slide as PNG
+  async function downloadSlide(slideId, filename) {
+    const slide = document.getElementById(slideId);
+    if (!slide) return;
+
+    showToast('Rendering slide...', 0);
+
+    // Temporarily reset transform for capture
+    const originalTransform = slide.style.transform;
+    slide.style.transform = 'scale(1)';
+
+    try {
+      const canvas = await html2canvas(slide, {
+        width: 1080,
+        height: 1350,
+        scale: 2,           // 2x for crisp output (2160 x 2700)
+        backgroundColor: null,
+        useCORS: true,
+        logging: false
+      });
+
+      // Restore transform
+      slide.style.transform = originalTransform;
+
+      const link = document.createElement('a');
+      link.download = `paris-burger-battle-${filename}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+
+      showToast('✓ Downloaded ' + filename);
+    } catch (err) {
+      slide.style.transform = originalTransform;
+      console.error(err);
+      showToast('✗ Download failed');
+    }
+  }
+
+  // Download all slides sequentially
+  async function downloadAll() {
+    const slides = [
+      ['slide-1', '01-cover'],
+      ['slide-2', '02-the-idea'],
+      ['slide-3', '03-how-it-works'],
+      ['slide-4', '04-nominations-open'],
+      ['slide-5', '05-three-ways'],
+      ['slide-6', '06-hashtag'],
+      ['slide-7', '07-stakes'],
+      ['slide-8', '08-cta']
+    ];
+
+    for (let i = 0; i < slides.length; i++) {
+      const [id, name] = slides[i];
+      showToast(`Downloading ${i + 1} of ${slides.length}...`, 0);
+      await downloadSlide(id, name);
+      // Small pause between downloads to avoid browser throttling
+      await new Promise(r => setTimeout(r, 600));
+    }
+
+    showToast('✓ All 8 slides downloaded');
+  }
+</script>
+
+</body>
+</html>
